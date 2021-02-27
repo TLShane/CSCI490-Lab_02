@@ -24,33 +24,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        editText = findViewById(R.id.editTextTextPersonName);
+        //editText = findViewById(R.id.editTextTextPersonName);
 
-        button = findViewById(R.id.button);
+        button = findViewById(R.id.backroundb);
         i = new Intent(this, SecondActivity.class);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-                String s = editText.getText().toString();
-                i.putExtra("testString", s);
-
-                startActivity(i);
+                //part 1
+                //String s = editText.getText().toString();
+                //i.putExtra("testString", s);
+                //startActivity(i);
+                //part 2
+                startActivityForResult(i,BACKROUND_CODE);
             }
         });
     }
-    //   @Override
-    //   protected void onActivityResult (int requestCode, int resultCode, Intent data) {
-    //   super.onActivityResult(requestCode, resultCode, data);
-    //
-    //   if (requestCode == BACKROUND_CODE && requestCode == Activity.RESULT_OK){
-    //       Bundle extras = data.getExtras();
-    //       if (extras != null){
-    //        ConstraintLayout currentLayout = findViewById(R.id.main_layout);
-    //      }
-    //  }
-    //   }
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i("MainActivity", "resultcode, " + resultCode);
+        if (requestCode == BACKROUND_CODE && resultCode == Activity.RESULT_OK){
+            Bundle extras = data.getExtras();
+            int ID = extras.getInt("imageID");
+            if (extras != null){
+                ConstraintLayout currentLayout = findViewById(R.id.mainactivity);
+                currentLayout.setBackground(getDrawable((ID)));
+
+            }
+
+
+
+        }
+    }
 }
